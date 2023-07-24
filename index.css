@@ -1,22 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Josefin+Sans:wght@400;700&family=Kumbh+Sans:wght@400;700&family=Outfit:wght@400;700&family=Rubik:wght@300;400;700&display=swap');
 
 :root {
-    --primary-bright-blue:hsl(220, 98%, 61%);
-    --bg-primary:linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%);
-    --secondary-very-light-gray:hsl(0, 0%, 98%);
-    --secondary-very-light-grayish-blue:hsl(236, 33%, 92%);
-    --secondary-light-grayish-blue:hsl(233, 11%, 84%);
-    --secondary-dark-grayish-blue:hsl(236, 9%, 61%);
-    --secondary-very-grayish-blue:hsl(235, 19%, 35%);
+    --text-primary: #fafafa;
+    --bg-primary: #050505;
+    --primary: #e2de1d;
+    --secondary: #1a2e05;
+    --accent: #b4ed78;
 
-    --very-dark-blue:hsl(235, 21%, 11%);
-    --very-dark-desaturated-blue:hsl(235, 24%, 19%);
-    --light-grayish-blue:hsl(234, 39%, 85%);
-    --light-grayish-blue-hover:hsl(236, 33%, 92%);
-    --dark-grayish-blue:hsl(234, 11%, 52%);
-    --very-dark-grayish-blue:hsl(233, 14%, 35%);
-    --very-dark-grayish-blue-2:hsl(233, 14%, 26%);
-    
+
 }
 
 * {
@@ -34,116 +25,137 @@ body {
     font-family: 'Outfit', sans-serif;
     font-family: 'Rubik', sans-serif;
     font-size: 18px;
+    color: var(--text-primary);
+    background: var(--bg-primary);
 }
-button{
+
+button {
     border: none;
     background: inherit;
     color: var(--light-grayish-blue);
     cursor: pointer;
-} 
-button:hover{
-color: white;
+}
+
+button:hover {
+    color: var(--text-primary);
 }
 
 .container {
-    width: 100vw;
-    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
-}
 
-.upper {
-    width: 100%;
-    height: 36%;
-    background: linear-gradient(to-right, blue, violent);
-}
-
-.lower {
-    width: 100%;
-    height: 64%;
-    background: #000;
-
-}
-.upper-img{
-    width: 100%;
-    height: 100%;
 }
 
 .todo {
     width: 70%;
     height: 70%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
     border-radius: 0.6rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border: 1px solid ;
+    padding:2rem ;
+    margin: 0;
 }
-.title{
+
+.title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
 }
-.title h1{
+
+.title h1 {
     letter-spacing: 12px;
     font-weight: 700;
 }
-.input{
-    width: 100%;
-    background: var(--very-dark-blue);
-    padding: .4rem  1rem;
+
+.input {
+    /* width: 100%; */
+    background: var(--bg-primary);
+    padding: .4rem 1rem;
     display: flex;
     align-items: center;
     gap: 1rem;
 }
-.input input{
+
+.input input {
     background: inherit;
     border: none;
     outline: none;
     font-size: 1rem;
-    color: var(--secondary-very-light-gray);
     width: 100%;
+    color: inherit;
+    padding: .1rem 3rm;
 
 }
-.input .checkbox{
-    color: var(--light-grayish-blue);
+
+.input .checkbox {
+    color: var(--secondary);
     width: 1.2rem;
     height: 1.2rem;
     clip-path: circle(50%);
-
+    cursor: pointer;
 }
 
-.todo-item{
-    overflow-y: scroll;
+.todo-item {
     border-bottom: 1px solid grey;
+    display: flex;
+    justify-content: start;
 }
-.todo-item p{
-    color: var(--light-grayish-blue);
+
+.todo-item p.done {
+    color: rgb(133, 133, 133) !important;
+
+
 }
-.todo-nav{
+.todo-item div{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 3rem;
+    align-items: center;
+    justify-content: space-between;
+}
+.deadline{
+    color: rgb(133, 133, 133) !important;
+    font-size: .6rem;
+    font-style: italic;
+}
+
+.todo-nav {
     border-top: 1px solid grey;
 }
 
-.todo-nav, .progress{
+.todo-nav,
+.progress {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
     align-items: center;
     color: var(--secondary-light-grayish-blue);
     font-size: 1rem;
-    padding: 0.4rem 2rem;
+    padding: 0.4rem 0;
 }
 
-.todo-input-form{
+#todo-input-form label {
     display: flex;
+    gap: 1rem;
+    
 }
-.todo-list{
+#todo-input-form{
+    display: grid;
+    grid-template-columns: 1fr 4rem;
+    padding: .6rem 1rem;
+    border-radius: .3rem;
+    background: var(--bg-primary);
+    box-shadow: 0px 1px 2px ;
+    width: 100%;
+}
+
+
+.todo-list {
     margin-top: 2rem;
     height: 74%;
     display: flex;
@@ -151,19 +163,67 @@ color: white;
     justify-content: space-between;
     background: var(--very-dark-blue);
 
-    /* background: grey; */
 }
-.todo-list-section{
+
+.todo-list-section {
     max-height: 100%;
     overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
 }
-.done{
-    text-decoration: line-through ;
+.todo-list-section::-webkit-scrollbar {
+    display: none;
+  }
+.done {
+    text-decoration: line-through;
+    font-style: italic;
+    color: var(--accent);
     /* color: red; */
 }
 
-@media screen and (max-width:600px) {
+
+#date{
+    cursor: pointer;
+    width: 2rem;
+    border: 1px solid;
+}
+.cross{
+    background: var(--accent);
+    padding: .3rem .6rem;
+    color: var(--text-primary);
+    font-size: 1rem;
+    border-radius: .3rem;
+    font-weight: 900;
+    outline: none;
+    border: none;
+    color: var(--secondary);
+
+}
+.cross:hover{
+    background: var(--primary);
+    color: var(--secondary);
+
+}
+
+form.input{
+    overflow: hidden;
+}
+@media screen and (max-width:768px) {
     .todo{
+        padding: 1rem;
+        margin: 0 .1rem;
         width: 100%;
     }
+    .todo-nav{
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding: .6rem 0;
+    }
+ 
+}
+@media screen and (max-width:320px) {
+    .todo-nav .progress{
+        order: 1;
+    }
+
 }

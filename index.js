@@ -1,5 +1,6 @@
 const form = document.getElementById("todo-input-form")
 const checkbox = document.getElementById("checkbox")
+const completionDate = document.getElementById("date")
 const todo = document.getElementById("todo-input")
 const template = document.getElementById("todo-template")
 const todolist = document.getElementById('todo-list-section')
@@ -9,13 +10,30 @@ const activeBtn = document.getElementById("active")
 const completedBtn = document.getElementById("completed")
 const clearBtn = document.getElementById("clear")
 let todos = []
-if (!localStorage.getItem('todos')) {
-    localStorage.setItem('todos', JSON.stringify(todos))
-}
-else{
-    todos = JSON.parse(localStorage.getItem('todos'))
+updateLocalStorage()
+function updateLocalStorage() {
+    if (!localStorage.getItem('todos')) {
+        localStorage.setItem('todos', JSON.stringify(todos))
+    }
+    else {
+        todos = JSON.parse(localStorage.getItem('todos'))
+    }
 }
 renderTodo(todos)
+
+class CompletedTodos {
+    _id
+    _todo
+    _completionDate
+    _todos = []
+    constructor(todo, completionDate) {
+
+    }
+    getTodos() {
+        return this._todos
+    }
+}
+
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -26,7 +44,8 @@ form.addEventListener('submit', (e) => {
     todos.push({
         id: todoId,
         todo: todo.value,
-        isCompleted: checkbox.checked
+        isCompleted: checkbox.checked,
+        deadline: completionDate.value
     })
     localStorage.setItem('todos', JSON.stringify(todos))
 
@@ -50,14 +69,27 @@ function renderTodo(todos) {
         checkbox.type = 'checkbox'
         checkbox.classList = ['checkbox checkbox1']
         const todoItemText = document.createElement('p')
+        const div = document.createElement('div')
+        const deadline = document.createElement('p')
+        deadline.className = "deadline"
         todoItemText.className = 'todo-list-item'
+        const cross = document.createElement('button')
+        cross.className = "cross"
+        
         if (e.isCompleted) {
             todoItemText.classList.add("done")
         }
+        cross.textContent = "X"
         checkbox.checked = e.isCompleted
         todoItemText.textContent = e.todo
+        deadline.textContent = "deadline:- "+(e.deadline || "")
         todoItem.appendChild(checkbox)
-        todoItem.appendChild(todoItemText)
+        div.appendChild(todoItemText)
+        div.appendChild(cross)
+        div.appendChild(deadline)
+        todoItem.appendChild(div)
+        // todoItem.appendChild(todoItemText)
+        // todoItem.appendChild(cross)
         todolist.appendChild(todoItem)
     })
     const checkbox1 = document.querySelectorAll(".checkbox1")
@@ -71,7 +103,18 @@ function renderTodo(todos) {
 
         })
     })
+    const cross = document.querySelectorAll(".cross")
+    cross.forEach(i => {
+        i.addEventListener('click', () => {
+            let itemId = i.parentNode.parentNode.id
+            console.log(i.parentNode.parentNode.id);
+            todos = todos.filter(i => i.id != itemId)
+            localStorage.setItem('todos', JSON.stringify(todos))
+            console.log(todos.filter(i => i.id != itemId));
+            renderTodo(todos)
 
+        })
+    })
 }
 
 allBtn.addEventListener('click', e => {
